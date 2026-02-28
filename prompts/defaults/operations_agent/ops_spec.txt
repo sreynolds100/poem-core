@@ -1,0 +1,5 @@
+# Ops Spec Generation Prompt Template
+# Version: 1.0
+# Agent: Operations Agent
+#
+# TODO: Implement prompt in Phase 1 (Task 1.4.2)

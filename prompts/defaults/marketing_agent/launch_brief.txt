@@ -1,0 +1,5 @@
+# Launch Brief Generation Prompt Template
+# Version: 1.0
+# Agent: Marketing Agent
+#
+# TODO: Implement prompt in Phase 1 (Task 1.6.2)

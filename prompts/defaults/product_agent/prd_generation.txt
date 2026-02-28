@@ -1,0 +1,13 @@
+# PRD Generation Prompt Template
+# Version: 1.0
+# Agent: Product Agent
+#
+# This prompt is used to generate PRDs from product briefs.
+# Edit this file to customize PRD generation behavior.
+#
+# Variables available:
+#   {product_brief} - The user's product brief input
+#   {context} - Retrieved context from the lifecycle graph
+#   {examples} - Few-shot examples of good PRDs
+
+# TODO: Implement prompt in Phase 1 (Task 1.3.3)

@@ -1,0 +1,141 @@
+# POEM Configuration
+# Copy this file to config.yaml and fill in your values.
+# config.yaml is gitignored — your secrets stay local.
+
+# ─────────────────────────────────────────────
+# LLM Provider
+# ─────────────────────────────────────────────
+llm:
+  # Options: anthropic, openai, azure_openai
+  provider: anthropic
+
+  anthropic:
+    api_key: ${ANTHROPIC_API_KEY}  # Set via environment variable
+    model: claude-sonnet-4-20250514
+    max_tokens: 4096
+
+  openai:
+    api_key: ${OPENAI_API_KEY}
+    model: gpt-4o
+    max_tokens: 4096
+
+  azure_openai:
+    api_key: ${AZURE_OPENAI_API_KEY}
+    endpoint: ${AZURE_OPENAI_ENDPOINT}
+    deployment: ${AZURE_OPENAI_DEPLOYMENT}
+    api_version: "2024-02-15-preview"
+
+# ─────────────────────────────────────────────
+# Vector Database
+# ─────────────────────────────────────────────
+vector_db:
+  # Options: pgvector, pinecone, qdrant
+  provider: pgvector
+
+  pgvector:
+    connection_string: ${PGVECTOR_CONNECTION_STRING}
+    # Default: postgresql://poem:poem@localhost:5432/poem
+    table_name: context_graph
+
+  pinecone:
+    api_key: ${PINECONE_API_KEY}
+    environment: ${PINECONE_ENVIRONMENT}
+    index_name: poem-context
+
+  qdrant:
+    url: ${QDRANT_URL}
+    # Default: http://localhost:6333
+    collection_name: poem-context
+
+# ─────────────────────────────────────────────
+# Agents
+# ─────────────────────────────────────────────
+agents:
+  # Directory containing prompt templates
+  prompts_dir: ./prompts/defaults
+
+  # Enable/disable individual agents
+  product_agent:
+    enabled: true
+  operations_agent:
+    enabled: true
+  engineering_agent:
+    enabled: true
+  marketing_agent:
+    enabled: true
+  feedback_agent:
+    enabled: true
+
+# ─────────────────────────────────────────────
+# Orchestrator
+# ─────────────────────────────────────────────
+orchestrator:
+  # Require human approval at each stage transition
+  approval_gates: true
+
+  # Maximum time (seconds) to wait for human approval before timeout
+  approval_timeout: 86400  # 24 hours
+
+  # Enable flywheel loop (feedback → next iteration)
+  flywheel_enabled: true
+
+# ─────────────────────────────────────────────
+# Integrations
+# ─────────────────────────────────────────────
+integrations:
+  # Project management (for Engineering Agent ticket export)
+  project_management:
+    # Options: linear, jira, github_issues, none
+    provider: none
+    linear:
+      api_key: ${LINEAR_API_KEY}
+      team_id: ${LINEAR_TEAM_ID}
+    jira:
+      url: ${JIRA_URL}
+      email: ${JIRA_EMAIL}
+      api_token: ${JIRA_API_TOKEN}
+      project_key: ${JIRA_PROJECT_KEY}
+
+  # Notifications (for approval gate alerts)
+  notifications:
+    # Options: slack, email, none
+    provider: none
+    slack:
+      webhook_url: ${SLACK_WEBHOOK_URL}
+    email:
+      smtp_host: ${SMTP_HOST}
+      smtp_port: 587
+      smtp_user: ${SMTP_USER}
+      smtp_password: ${SMTP_PASSWORD}
+      from_address: ${EMAIL_FROM}
+
+  # Feedback sources (for Feedback Agent)
+  feedback:
+    # Options: manual, analytics, none
+    provider: manual
+    # analytics:
+    #   provider: posthog
+    #   api_key: ${POSTHOG_API_KEY}
+    #   project_id: ${POSTHOG_PROJECT_ID}
+
+# ─────────────────────────────────────────────
+# UI
+# ─────────────────────────────────────────────
+ui:
+  host: 0.0.0.0
+  port: 3000
+
+# ─────────────────────────────────────────────
+# API Server
+# ─────────────────────────────────────────────
+server:
+  host: 0.0.0.0
+  port: 8000
+  debug: false
+
+# ─────────────────────────────────────────────
+# Logging
+# ─────────────────────────────────────────────
+logging:
+  level: INFO  # DEBUG, INFO, WARNING, ERROR
+  format: json  # json, text

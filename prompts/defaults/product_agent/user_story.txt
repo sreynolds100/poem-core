@@ -1,0 +1,5 @@
+# User Story Generation Prompt Template
+# Version: 1.0
+# Agent: Product Agent
+#
+# TODO: Implement prompt in Phase 1 (Task 1.3.4)

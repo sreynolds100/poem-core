@@ -1,0 +1,44 @@
+# POEM - Full Stack Docker Compose
+# Copyright (C) 2026 Samantha Reynolds
+# Licensed under AGPL-3.0. See LICENSE for details.
+#
+# Usage:
+#   cp config.example.yaml config.yaml  # Edit with your settings
+#   docker compose up
+
+services:
+  poem:
+    build: .
+    ports:
+      - "8000:8000"
+    volumes:
+      - ./config.yaml:/app/config.yaml:ro
+      - ./prompts:/app/prompts:ro
+    environment:
+      - ANTHROPIC_API_KEY=${ANTHROPIC_API_KEY}
+      - OPENAI_API_KEY=${OPENAI_API_KEY}
+      - PGVECTOR_CONNECTION_STRING=postgresql://poem:poem@db:5432/poem
+    depends_on:
+      db:
+        condition: service_healthy
+    restart: unless-stopped
+
+  db:
+    image: pgvector/pgvector:pg16
+    environment:
+      POSTGRES_USER: poem
+      POSTGRES_PASSWORD: poem
+      POSTGRES_DB: poem
+    ports:
+      - "5432:5432"
+    volumes:
+      - pgdata:/var/lib/postgresql/data
+    healthcheck:
+      test: ["CMD-SHELL", "pg_isready -U poem"]
+      interval: 5s
+      timeout: 5s
+      retries: 5
+    restart: unless-stopped
+
+volumes:
+  pgdata:
