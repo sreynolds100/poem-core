@@ -60,3 +60,4 @@ data/
 # Logs
 *.log
 logs/
+*:Zone.Identifier
