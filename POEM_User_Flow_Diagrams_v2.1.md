@@ -1,7 +1,7 @@
 # POEM User Flow Diagrams
 
 **For PRD Section 2: Solution Definition**  
-**Version:** 2.0 (aligned with PRD v1.3)  
+**Version:** 2.1 (aligned with PRD v1.3)  
 **Date:** February 2026
 
 ---
